@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickShare - Share Across Devices</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: background 0.3s;
+        }
+
+        /* Landing Page - DARK MODE DEFAULT */
+        .landing-container {
+            background: #1f2937;
+            backdrop-filter: blur(10px);
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+            border: 1px solid #374151;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 4em;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .landing-container h1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .landing-container p {
+            color: #9ca3af;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 15px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* HALF HOVER EFFECT */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: #111827;
+            color: white;
+            box-shadow: 0 10px 25px rgba(17, 24, 39, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #1f2937;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(17, 24, 39, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #374151;
+            color: #f3f4f6;
+            border: 2px solid #4b5563;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+            border-color: #6b7280;
+            transform: translateY(-2px);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 18px 20px;
+            /* margin: 12px 0; */
+            margin-bottom: 5px;
+            border: 2px solid #4b5563;
+            border-radius: 15px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: #374151;
+            color: #f9fafb;
+        }
+
+        input[type="text"]::placeholder {
+            color: #9ca3af;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #4b5563;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-title {
+            color: #f3f4f6;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        /* Light Mode Overrides */
+        body.light-mode {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .light-mode .landing-container {
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+        }
+
+        .light-mode .landing-container p {
+            color: #666;
+        }
+
+        .light-mode .btn-primary {
+            background: #111827;
+        }
+
+        .light-mode .btn-primary:hover {
+            background: #1f2937;
+        }
+
+        .light-mode .btn-secondary {
+            background: white;
+            color: #111827;
+            border-color: #e0e0e0;
+        }
+
+        .light-mode .btn-secondary:hover {
+            background: #f8f9fa;
+            border-color: #111827;
+        }
+
+        .light-mode input[type="text"] {
+            background: #f8f9fa;
+            border-color: #e8e8e8;
+            color: #1f2937;
+        }
+
+        .light-mode input[type="text"]::placeholder {
+            color: #9ca3af;
+        }
+
+        .light-mode input[type="text"]:focus {
+            border-color: #111827;
+            background: white;
+        }
+
+        .light-mode .form-title {
+            color: #333;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            display: none;
+            background: #ffffff;
+            width: 95%;
+            max-width: 900px;
+            height: 92vh;
+            border-radius: 25px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .chat-header {
+            background: #ffffff;
+            color: #1f2937;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f3f4f6;
+            transition: all 0.3s;
+        }
+
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111827;
+            border-radius: 12px;
+            color: white;
+        }
+
+        .chat-header h2 {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 3px;
+            color: #1f2937;
+        }
+
+        .room-info {
+            font-size: 0.85em;
+            color: #6b7280;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .dark-mode-toggle {
+            background: #111827;
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .dark-mode-toggle:hover::before {
+            left: 100%;
+        }
+
+        .dark-mode-toggle:hover {
+            background: #1f2937;
+            transform: scale(1.05);
+        }
+
+        .leave-btn {
+            background: #fee2e2;
+            border: none;
+            color: #dc2626;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .leave-btn:hover {
+            background: #fecaca;
+            transform: translateY(-2px);
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            background: #fafafa;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+        }
+
+        .empty-state {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #9ca3af;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .empty-state-icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #6b7280;
+        }
+
+        .empty-state p {
+            font-size: 1em;
+            color: #9ca3af;
+        }
+
+        .messages-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .messages-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .message {
+            margin: 15px 0;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-header {
+            font-size: 0.85em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .message-sender {
+            color: #4f46e5;
+        }
+
+        .message-time {
+            font-size: 0.85em;
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        .message-content {
+            background: white;
+            padding: 14px 18px;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            word-wrap: break-word;
+            max-width: 80%;
+            border: 1px solid #f3f4f6;
+            line-height: 1.5;
+            color: #1f2937;
+            transition: all 0.3s;
+        }
+
+        .message-content img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #4f46e5;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            margin-top: 10px;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+        }
+
+        .file-link:hover {
+            background: #4338ca;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Input Area - FIXED */
+        .input-area {
+            padding: 20px 25px;
+            background: #ffffff;
+            border-top: 2px solid #f3f4f6;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+
+        .file-input-label {
+            background: #f3f4f6;
+            color: #6b7280;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .file-input-label:hover {
+            background: #e5e7eb;
+            color: #374151;
+            transform: scale(1.05);
+        }
+
+        .file-input-label:active {
+            transform: scale(0.95);
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 24px;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        .input-wrapper:focus-within {
+            background: white;
+            border-color: #111827;
+        }
+
+        #messageInput {
+            width: 100%;
+            padding: 14px 20px;
+            margin-top: -1px;
+            margin-bottom: -1px;
+            border: none;
+            background: transparent;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+            color: #1f2937;
+            caret-color: #111827;
+            border-radius: 24px;
+        }
+
+        #messageInput::placeholder {
+            color: #9ca3af;
+        }
+
+        #sendBtn {
+            background: #111827;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(17, 24, 39, 0.3);
+        }
+
+        #sendBtn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        #sendBtn:hover::before {
+            left: 100%;
+        }
+
+        #sendBtn:hover {
+            background: #1f2937;
+            transform: translateY(-3px) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(17, 24, 39, 0.4);
+        }
+
+        #sendBtn:active {
+            transform: translateY(-1px) rotate(0deg);
+        }
+
+        #sendBtn svg {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s;
+        }
+
+        #sendBtn:hover svg {
+            transform: translateX(2px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background: #1f2937;
+            padding: 40px;
+            border-radius: 25px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            animation: scaleIn 0.3s;
+            border: 1px solid #374151;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h3 {
+            margin-bottom: 15px;
+            color: #f3f4f6;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        .modal-content p {
+            color: #9ca3af;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        /* Light mode modal */
+        .light-mode .modal-content {
+            background: white;
+            border: none;
+        }
+
+        .light-mode .modal-content h3 {
+            color: #333;
+        }
+
+        .light-mode .modal-content p {
+            color: #666;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* DARK MODE CHAT STYLES */
+        body.dark-mode .chat-container {
+            background: #1f2937;
+        }
+
+        body.dark-mode .chat-header {
+            background: #1f2937;
+            border-bottom-color: #374151;
+        }
+
+        body.dark-mode .chat-header h2 {
+            color: #f9fafb;
+        }
+
+        body.dark-mode .room-info {
+            color: #9ca3af;
+        }
+
+        body.dark-mode .leave-btn {
+            background: #7f1d1d;
+            color: #fca5a5;
+        }
+
+        body.dark-mode .leave-btn:hover {
+            background: #991b1b;
+        }
+
+        body.dark-mode .messages-container {
+            background: #111827;
+        }
+
+        body.dark-mode .empty-state h3 {
+            color: #d1d5db;
+        }
+
+        body.dark-mode .empty-state p {
+            color: #6b7280;
+        }
+
+        body.dark-mode .message-sender {
+            color: #818cf8;
+        }
+
+        body.dark-mode .message-content {
+            background: #374151;
+            border-color: #4b5563;
+            color: #f9fafb;
+        }
+
+        body.dark-mode .input-area {
+            background: #1f2937;
+            border-top-color: #374151;
+        }
+
+        body.dark-mode .file-input-label {
+            background: #374151;
+            color: #d1d5db;
+        }
+
+        body.dark-mode .file-input-label:hover {
+            background: #4b5563;
+            color: #f3f4f6;
+        }
+
+        body.dark-mode .input-wrapper {
+            background: #374151;
+            border-color: #4b5563;
+        }
+
+        body.dark-mode .input-wrapper:focus-within {
+            background: #4b5563;
+            border-color: #9ca3af;
+        }
+
+        body.dark-mode #messageInput {
+            color: #f9fafb;
+            caret-color: #f9fafb;
+        }
+
+        body.dark-mode #messageInput::placeholder {
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .landing-container {
+                padding: 40px 30px;
+            }
+
+            .landing-container h1 {
+                font-size: 2em;
+            }
+
+            .logo {
+                font-size: 3em;
+            }
+
+            .input-area {
+                padding: 15px 20px;
+                gap: 10px;
+            }
+
+            .file-input-label {
+                width: 42px;
+                height: 42px;
+            }
+
+            #sendBtn {
+                width: 46px;
+                height: 46px;
+            }
+
+            .messages-container {
+                padding: 20px;
+            }
+
+            .message-content {
+                max-width: 90%;
+            }
+
+            .header-actions {
+                gap: 10px;
+            }
+
+            .dark-mode-toggle {
+                width: 36px;
+                height: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode">
+    <!-- Landing Page -->
+    <div class="landing-container" id="landingPage">
+        <div class="logo">🚀</div>
+        <h1>QuickShare</h1>
+        <p>Share text, images, and files across your devices instantly</p>
+
+        <div id="welcomeScreen">
+            <button class="btn btn-primary" onclick="showCreateRoom()">Create New Room</button>
+            <button class="btn btn-secondary" onclick="showJoinRoom()">Join Existing Room</button>
+        </div>
+
+        <div id="createRoomScreen" class="hidden">
+            <h3 class="form-title">Create Room</h3>
+            <input type="text" id="createRoomCode" placeholder="Enter room code (e.g., abc123)">
+            <input type="text" id="createName" placeholder="Your name">
+            <button class="btn btn-primary" onclick="createRoom()">Create & Join</button>
+            <button class="btn btn-secondary" onclick="showWelcome()">Back</button>
+        </div>
+
+        <div id="joinRoomScreen" class="hidden">
+            <h3 class="form-title">Join Room</h3>
+            <input type="text" id="joinRoomCode" placeholder="Enter room code">
+            <input type="text" id="joinName" placeholder="Your name">
+            <button class="btn btn-primary" onclick="showHistoryOption()">Next</button>
+            <button class="btn btn-secondary" onclick="showWelcome()">Back</button>
+        </div>
+    </div>
+
+    <!-- History Modal -->
+    <div class="modal" id="historyModal">
+        <div class="modal-content">
+            <h3>📜 Chat History</h3>
+            <p>Do you want to see previous messages?</p>
+            <button class="btn btn-primary" onclick="joinRoom(true)">Yes, show history</button>
+            <button class="btn btn-secondary" onclick="joinRoom(false)">No, start fresh</button>
+        </div>
+    </div>
+
+    <!-- Chat Interface -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <div class="chat-header-left">
+                <div class="header-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </div>
+                <div>
+                    <h2>QuickShare</h2>
+                    <div class="room-info">Room: <span id="roomCodeDisplay">demo123</span> • <span id="userName">Preview
+                            User</span></div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                    <!-- Light mode (sun icon) -->
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+
+                    <!-- Dark mode (moon icon) -->
+                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                        <path d="M21 12.79A9 9 0 0111.21 3 7 7 0 0012 21a9 9 0 009-8.21z"></path>
+                    </svg>
+                </button>
+
+                <button class="leave-btn" onclick="leaveRoom()">Leave</button>
+            </div>
+        </div>
+
+        <div class="messages-container" id="messagesContainer">
+            <div class="empty-state">
+                <div class="empty-state-icon">💭</div>
+                <h3>No messages yet</h3>
+                <p>Start the conversation by sending a message!</p>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <label for="fileInput" class="file-input-label" title="Attach File">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+            </label>
+            <input type="file" id="fileInput" accept="image/*,.pdf">
+
+            <div class="input-wrapper">
+                <input type="text" id="messageInput" placeholder="Type your message...">
+            </div>
+
+            <button id="sendBtn" title="Send Message">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode functionality - DEFAULT ON
+        let isDarkMode = true;
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                document.body.classList.remove('light-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+            }
+
+            // Save preference
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+        // Load dark mode preference - default to dark
+        window.addEventListener('DOMContentLoaded', function () {
+            const savedDarkMode = localStorage.getItem('darkMode');
+            if (savedDarkMode === null) {
+                localStorage.setItem('darkMode', 'true');
+            } else if (savedDarkMode === 'false') {
+                isDarkMode = true;
+                toggleDarkMode();
+            }
+        });
+
+        // Demo navigation functions
+        function showCreateRoom() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('createRoomScreen').classList.remove('hidden');
+        }
+
+        function showJoinRoom() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('joinRoomScreen').classList.remove('hidden');
+        }
+
+        function showWelcome() {
+            document.getElementById('createRoomScreen').classList.add('hidden');
+            document.getElementById('joinRoomScreen').classList.add('hidden');
+            document.getElementById('welcomeScreen').classList.remove('hidden');
+        }
+
+        function createRoom() {
+            const roomCode = document.getElementById('createRoomCode').value.trim();
+            const name = document.getElementById('createName').value.trim();
+
+            if (!roomCode || !name) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            enterChat(name, roomCode);
+        }
+
+        function showHistoryOption() {
+            const roomCode = document.getElementById('joinRoomCode').value.trim();
+            const name = document.getElementById('joinName').value.trim();
+
+            if (!roomCode || !name) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            document.getElementById('historyModal').style.display = 'flex';
+        }
+
+        function joinRoom(showHistory) {
+            const roomCode = document.getElementById('joinRoomCode').value.trim();
+            const name = document.getElementById('joinName').value.trim();
+            document.getElementById('historyModal').style.display = 'none';
+            enterChat(name, roomCode);
+        }
+
+        function enterChat(name, roomCode) {
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('roomCodeDisplay').textContent = roomCode;
+            document.getElementById('userName').textContent = name;
+        }
+
+        function leaveRoom() {
+            document.getElementById('chatContainer').style.display = 'none';
+            document.getElementById('landingPage').style.display = 'flex';
+            document.getElementById('messagesContainer').innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">💭</div>
+                    <h3>No messages yet</h3>
+                    <p>Start the conversation by sending a message!</p>
+                </div>
+            `;
+            showWelcome();
+        }
+
+        // Demo message input
+        document.getElementById('messageInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' && this.value.trim()) {
+                const container = document.getElementById('messagesContainer');
+
+                // Remove empty state if exists
+                const emptyState = container.querySelector('.empty-state');
+                if (emptyState) {
+                    emptyState.remove();
+                }
+
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                messageDiv.innerHTML = `
+                    <div class="message-header">
+                        <span class="message-sender">You</span>
+                        <span class="message-time">${time}</span>
+                    </div>
+                    <div class="message-content">${escapeHtml(this.value)}</div>
+                `;
+                container.appendChild(messageDiv);
+                container.scrollTop = container.scrollHeight;
+                this.value = '';
+            }
+        });
+
+        document.getElementById('sendBtn').addEventListener('click', function () {
+            const input = document.getElementById('messageInput');
+            if (input.value.trim()) {
+                const e = new KeyboardEvent('keypress', { key: 'Enter' });
+                input.dispatchEvent(e);
+            }
+        });
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+
+</html>
